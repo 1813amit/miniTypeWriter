@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="main">
+        <div class="center">
+            <h1>welcome to typing speed test</h1>
+            <h2 id="msg"></h2>
+            <br>
+            <textarea name="" id="myword" cols="100" rows="20" placeholder="yor are the best Writer in this world"></textarea>
+            <br>
+            <button id="btn">Start</button>
+        </div>
+    </div>
+
+
+
+
+
+
+
+<script>
+
+const setOfWord=[
+   ' my name is amit jain what is your name ',
+   'hope you are having fun this is a simple game you can make',
+    'sorry this game is so easy but i can do this '
+]
+
+const msg = document.getElementById('msg')
+const typeword=document.getElementById('myword')
+const btn=document.getElementById('btn')
+let startTime , endTime
+
+ const playgame =()=>{
+    let randomnum= Math.floor(Math.random()*setOfWord.length)
+    msg.innerText=setOfWord[randomnum]
+    let date=new Date();
+    startTime=date.getTime()
+    btn.innerText="Done"
+}
+
+const endPlay =()=>{
+    let date=new Date();
+    endTime=date.getTime()
+    let totalTime=((endTime-startTime)/1000)
+    console.log(totalTime)
+
+    let totalStr=typeword.value
+    let wordCount=wordCounter(totalStr)
+
+    let speed= Math.round((wordCount/totalTime)*60)
+
+    let finalmsg ="you typed total at " + speed + " words per minute ";
+    finalmsg += comparewords(msg.innerText,totalStr)
+    msg.innerText=finalmsg
+}
+
+const comparewords=(str1,str2)=>{
+let words1=str1.split(" ")
+let words2=str2.split(" ")
+let cnt=0;
+
+
+// array then foreach then it wioll take whole function with 
+// vslue and index no. of that array
+
+words1.forEach(function(item,index) {
+    if(item==words2[index]){
+        cnt++
+    }
+});
+let errorwords=(words1.length - cnt);
+return (cnt + " correct out of " + words1.length + " word and the total number of error are " + errorwords + ".") 
+}
+const wordCounter=(str)=>{
+    let response = str.split(" ").length;
+    return response
+}
+
+
+btn.addEventListener('click',function(){
+    if(this.innerText == 'Start'){
+        typeword.disabled=false;
+        playgame()
+    }else if(this.innerText=="Done"){
+        typeword.disabled=true;
+        btn.innerText="Start"
+        endPlay();
+    }
+})
+
+
+</script>
+ 
+</body>
+
+</html>
